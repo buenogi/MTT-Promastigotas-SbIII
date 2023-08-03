@@ -8,7 +8,7 @@ library(drc)
 
 # Loading data 
 
-MTT_SbIII <- read.csv(file = "Data/Processed/DataMTT_processed_normalized.csv", 
+MTT_SbIII_SUM <- read.csv(file = "Data/Processed/DataMTT_processed_normalized.csv", 
                       header = TRUE, sep = ,)
 
 # Checking data
@@ -18,12 +18,14 @@ MTT_SbIII$experiment <- as.factor(MTT_SbIII$experiment)
 sapply(MTT_SbIII, class)
 
 #Sumarizing 
-MTT_SbIII_SUM <- MTT_SbIII%>%
-  group_by(conc,pop)%>%
-  summarise(mean_value = mean(viability_res), sd_value = sd(viability_res))
+#MTT_SbIII_SUM <- MTT_SbIII%>%
+  #group_by(conc,pop)%>%
+  #summarise(mean_value = mean(viability_res), sd_value = sd(viability_res))
 
-MTT_SbIII_SUM <- rename(MTT_SbIII_SUM, viability_res = "mean_value", 
-                        conc = "conc", pop = "pop", sd_value = "sd_value", 
+MTT_SbIII_SUM <- rename(MTT_SbIII_SUM, 
+                        #viability_res = "mean_value", 
+                        conc = "conc", pop = "pop", 
+                        #sd_value = "sd_value", 
                         experiment = "experiment")
 
 
@@ -224,5 +226,301 @@ DoseResponseCurves1 <- ggplot(mapping = aes(x = log(conc,10) ,
 
 DoseResponseCurves1 + labs(color = "Population")
 
-ggsave("figs/03_DoseResponseCurve1.jpeg", dpi = 300 )
+ggsave("Figures/03_DoseResponseCurve1.jpeg", dpi = 300 )
+
+
+# Extracting measures
+
+
+COEFICIENTS <- c("b", "c", "d", "e")
+modelREF <- summary(REF_SbIII.LL4)
+confintREF <- confint(REF_SbIII.LL4)
+modelREF_coef <- as.data.frame(modelREF$coefficients)
+modelREF_conf <- as.data.frame(confintREF)
+modelREF_SUM <- cbind(modelREF_coef, modelREF_conf)
+modelREF_SUM$coef <- COEFICIENTS 
+modelREF_SUM$pop <- rep("REF", 4)
+
+modelGSH1 <- summary(GSH1_SbIII.LL4)
+confintGSH1 <- confint(GSH1_SbIII.LL4)
+modelGSH1_coef <- as.data.frame(modelGSH1$coefficients)
+modelGSH1_conf <- as.data.frame(confintGSH1)
+modelGSH1_SUM <- cbind(modelGSH1_coef, modelGSH1_conf)
+modelGSH1_SUM$coef <- COEFICIENTS 
+modelGSH1_SUM$pop <- rep("GSH1", 4)
+
+modelC6 <- summary(C6_SbIII.LL4)
+confintC6 <- confint(C6_SbIII.LL4)
+modelC6_coef <- as.data.frame(modelC6$coefficients)
+modelC6_conf <- as.data.frame(confintC6)
+modelC6_SUM <- cbind(modelC6_coef, modelC6_conf)
+modelC6_SUM$coef <- COEFICIENTS 
+modelC6_SUM$pop <- rep("C6", 4)
+
+modelC7 <- summary(C7_SbIII.LL4)
+confintC7 <- confint(C7_SbIII.LL4)
+modelC7_coef <- as.data.frame(modelC7$coefficients)
+modelC7_conf <- as.data.frame(confintC7)
+modelC7_SUM <- cbind(modelC7_coef, modelC7_conf)
+modelC7_SUM$coef <- COEFICIENTS 
+modelC7_SUM$pop <- rep("C7", 4)
+
+modelC44 <- summary(C44_SbIII.LL4)
+confintC44 <- confint(C44_SbIII.LL4)
+modelC44_coef <- as.data.frame(modelC44$coefficients)
+modelC44_conf <- as.data.frame(confintC44)
+modelC44_SUM <- cbind(modelC44_coef, modelC44_conf)
+modelC44_SUM$coef <- COEFICIENTS 
+modelC44_SUM$pop <- rep("C44", 4)
+
+modelC58 <- summary(C58_SbIII.LL4)
+confintC58 <- confint(C58_SbIII.LL4)
+modelC58_coef <- as.data.frame(modelC58$coefficients)
+modelC58_conf <- as.data.frame(confintC58)
+modelC58_SUM <- cbind(modelC58_coef, modelC58_conf)
+modelC58_SUM$coef <- COEFICIENTS 
+modelC58_SUM$pop <- rep("C58", 4)
+
+modelC67 <- summary(C67_SbIII.LL4)
+confintC67 <- confint(C67_SbIII.LL4)
+modelC67_coef <- as.data.frame(modelC67$coefficients)
+modelC67_conf <- as.data.frame(confintC67)
+modelC67_SUM <- cbind(modelC67_coef, modelC67_conf)
+modelC67_SUM$coef <- COEFICIENTS 
+modelC67_SUM$pop <- rep("C67", 4)
+
+modelC73 <- summary(C73_SbIII.LL4)
+confintC73 <- confint(C73_SbIII.LL4)
+modelC73_coef <- as.data.frame(modelC73$coefficients)
+modelC73_conf <- as.data.frame(confintC73)
+modelC73_SUM <- cbind(modelC73_coef, modelC73_conf)
+modelC73_SUM$coef <- COEFICIENTS 
+modelC73_SUM$pop <- rep("C73", 4)
+
+modelC85 <- summary(C85_SbIII.LL4)
+confintC85 <- confint(C85_SbIII.LL4)
+modelC85_coef <- as.data.frame(modelC85$coefficients)
+modelC85_conf <- as.data.frame(confintC85)
+modelC85_SUM <- cbind(modelC85_coef, modelC85_conf)
+modelC85_SUM$coef <- COEFICIENTS 
+modelC85_SUM$pop <- rep("C85", 4)
+
+modelC89 <- summary(C89_SbIII.LL4)
+confintC89 <- confint(C89_SbIII.LL4)
+modelC89_coef <- as.data.frame(modelC89$coefficients)
+modelC89_conf <- as.data.frame(confintC89)
+modelC89_SUM <- cbind(modelC89_coef, modelC89_conf)
+modelC89_SUM$coef <- COEFICIENTS 
+modelC89_SUM$pop <- rep("C89", 4)
+
+summary_DR <- rbind(modelREF_SUM,modelGSH1_SUM,
+                    modelC7_SUM, modelC6_SUM, modelC44_SUM,
+                    modelC58_SUM, modelC67_SUM, modelC73_SUM,
+                    modelC85_SUM, modelC89_SUM)
+
+write.csv(summary_DR , file = "Docs/summary_DR.csv", row.names = FALSE)
+
+
+#  Fit diagnostic
+
+par(mfrow=c(1,3), cex.lab=1.2)
+plot(REF$viability, fitted(REF_SbIII.LL4), main="LL4", 
+     xlab ="Adjusted values", ylab="Observed values", pch=16, cex=.7)
+abline(a = 0,b = 1)
+residuals(REF_SbIII.LL4, typeRes = c("studentised"))
+plot(fitted(REF_SbIII.LL4),residuals(REF_SbIII.LL4, 
+                                     typeRes = c("studentised")), 
+     main="LL4", xlab="Adjusted values", ylab="Residuals", pch=16, cex=.7)
+lines(loess.smooth(fitted(REF_SbIII.LL4), 
+                   residuals(REF_SbIII.LL4, typeRes = c("studentised"))))
+abline(h=0, lty=2)
+qqnorm(residuals(REF_SbIII.LL4), xlab="Theoretical quantiles", 
+       ylab="Residuals", main = "LL4")
+qqline(residuals(REF_SbIII.LL4))
+
+png("Figures/03_Fit_diagnostic_REF.png",  width = 6, height = 4, units = "in", res = 300)
+
+
+
+par(mfrow=c(1,3), cex.lab=1.2)
+plot(C6$viability, fitted(C6_SbIII.LL4), main="LL4", 
+     xlab ="Adjusted values", ylab="Observed values", pch=16, cex=.7)
+abline(a = 0,b = 1)
+residuals(C6_SbIII.LL4, typeRes = c("studentised"))
+plot(fitted(C6_SbIII.LL4),residuals(C6_SbIII.LL4, 
+                                    typeRes = c("studentised")), 
+     main="LL4", xlab="Adjusted values", ylab="Residuals", pch=16, cex=.7)
+lines(loess.smooth(fitted(C6_SbIII.LL4), 
+                   residuals(C6_SbIII.LL4, typeRes = c("studentised"))))
+abline(h=0, lty=2)
+qqnorm(residuals(C6_SbIII.LL4), xlab="Theoretical quantiles", 
+       ylab="Residuals", main = "LL4")
+qqline(residuals(C6_SbIII.LL4))
+
+png("Figures/03_Fit_diagnostic_C6.png",  width = 6, height = 4, units = "in", res = 300)
+
+
+par(mfrow=c(1,3), cex.lab=1.2)
+plot(C7$viability, fitted(C7_SbIII.LL4), main="LL4", 
+     xlab ="Adjusted values", ylab="Observed values", pch=16, cex=.7)
+abline(a = 0,b = 1)
+residuals(C7_SbIII.LL4, typeRes = c("studentised"))
+plot(fitted(C7_SbIII.LL4),residuals(C7_SbIII.LL4, 
+                                    typeRes = c("studentised")), 
+     main="LL4", xlab="Adjusted values", ylab="Residuals", pch=16, cex=.7)
+lines(loess.smooth(fitted(C7_SbIII.LL4), 
+                   residuals(C7_SbIII.LL4, typeRes = c("studentised"))))
+abline(h=0, lty=2)
+qqnorm(residuals(C7_SbIII.LL4), xlab="Theoretical quantiles", 
+       ylab="Residuals", main = "LL4")
+qqline(residuals(C7_SbIII.LL4))
+
+png("Figures/03_Fit_diagnostic_C7.png",  width = 6, height = 4, units = "in", res = 300)
+
+
+par(mfrow=c(1,3), cex.lab=1.2)
+plot(C44$viability, fitted(C44_SbIII.LL4), main="LL4", 
+     xlab ="Adjusted values", ylab="Observed values", pch=16, cex=.7)
+abline(a = 0,b = 1)
+residuals(C44_SbIII.LL4, typeRes = c("studentised"))
+plot(fitted(C44_SbIII.LL4),residuals(C44_SbIII.LL4, 
+                                     typeRes = c("studentised")), 
+     main="LL4", xlab="Adjusted values", ylab="Residuals", pch=16, cex=.7)
+lines(loess.smooth(fitted(C44_SbIII.LL4), 
+                   residuals(C44_SbIII.LL4, typeRes = c("studentised"))))
+abline(h=0, lty=2)
+qqnorm(residuals(C44_SbIII.LL4), xlab="Theoretical quantiles", 
+       ylab="Residuals", main = "LL4")
+qqline(residuals(C44_SbIII.LL4))
+
+png("Figures/03_Fit_diagnostic_C44.png",  width = 6, height = 4, units = "in", res = 300)
+
+
+par(mfrow=c(1,3), cex.lab=1.2)
+plot(C58$viability, fitted(C58_SbIII.LL4), main="LL4", 
+     xlab ="Adjusted values", ylab="Observed values", pch=16, cex=.7)
+abline(a = 0,b = 1)
+residuals(C58_SbIII.LL4, typeRes = c("studentised"))
+plot(fitted(C58_SbIII.LL4),residuals(C58_SbIII.LL4, 
+                                     typeRes = c("studentised")), 
+     main="LL4", xlab="Adjusted values", ylab="Residuals", pch=16, cex=.7)
+lines(loess.smooth(fitted(C58_SbIII.LL4), 
+                   residuals(C58_SbIII.LL4, typeRes = c("studentised"))))
+abline(h=0, lty=2)
+qqnorm(residuals(C58_SbIII.LL4), xlab="Theoretical quantiles", 
+       ylab="Residuals", main = "LL4")
+qqline(residuals(C58_SbIII.LL4))
+
+png("Figures/03_Fit_diagnostic_C58.png",  width = 6, height = 4, units = "in", res = 300)
+
+
+
+par(mfrow=c(1,3), cex.lab=1.2)
+plot(GSH1$viability, fitted(GSH1_SbIII.LL4), main="LL4", 
+     xlab ="Adjusted values", ylab="Observed values", pch=16, cex=.7)
+abline(a = 0,b = 1)
+residuals(GSH1_SbIII.LL4, typeRes = c("studentised"))
+plot(fitted(GSH1_SbIII.LL4),residuals(GSH1_SbIII.LL4, 
+                                      typeRes = c("studentised")), 
+     main="LL4", xlab="Adjusted values", ylab="Residuals", pch=16, cex=.7)
+lines(loess.smooth(fitted(GSH1_SbIII.LL4), 
+                   residuals(GSH1_SbIII.LL4, typeRes = c("studentised"))))
+abline(h=0, lty=2)
+qqnorm(residuals(GSH1_SbIII.LL4), xlab="Theoretical quantiles", 
+       ylab="Residuals", main = "LL4")
+qqline(residuals(GSH1_SbIII.LL4))
+
+png("Figures/03_Fit_diagnostic_GSH1.png",  width = 6, height = 4, units = "in", res = 300)
+
+
+
+par(mfrow=c(1,3), cex.lab=1.2)
+plot(C67$viability, fitted(C67_SbIII.LL4), main="LL4", 
+     xlab ="Adjusted values", ylab="Observed values", pch=16, cex=.7)
+abline(a = 0,b = 1)
+residuals(C67_SbIII.LL4, typeRes = c("studentised"))
+plot(fitted(C67_SbIII.LL4),residuals(C67_SbIII.LL4, 
+                                     typeRes = c("studentised")), 
+     main="LL4", xlab="Adjusted values", ylab="Residuals", pch=16, cex=.7)
+lines(loess.smooth(fitted(C67_SbIII.LL4), 
+                   residuals(C67_SbIII.LL4, typeRes = c("studentised"))))
+abline(h=0, lty=2)
+qqnorm(residuals(C67_SbIII.LL4), xlab="Theoretical quantiles", 
+       ylab="Residuals", main = "LL4")
+qqline(residuals(C67_SbIII.LL4))
+
+png("Figures/03_Fit_diagnostic_C67.png",  width = 6, height = 4, units = "in", res = 300)
+
+
+par(mfrow=c(1,3), cex.lab=1.2)
+plot(C73$viability, fitted(C73_SbIII.LL4), main="LL4", 
+     xlab ="Adjusted values", ylab="Observed values", pch=16, cex=.7)
+abline(a = 0,b = 1)
+residuals(C73_SbIII.LL4, typeRes = c("studentised"))
+plot(fitted(C73_SbIII.LL4),residuals(C73_SbIII.LL4, 
+                                     typeRes = c("studentised")), 
+     main="LL4", xlab="Adjusted values", ylab="Residuals", pch=16, cex=.7)
+lines(loess.smooth(fitted(C73_SbIII.LL4), 
+                   residuals(C73_SbIII.LL4, typeRes = c("studentised"))))
+abline(h=0, lty=2)
+qqnorm(residuals(C73_SbIII.LL4), xlab="Theoretical quantiles", 
+       ylab="Residuals", main = "LL4")
+qqline(residuals(C73_SbIII.LL4))
+
+png("Figures/03_Fit_diagnostic_C73.png",  width = 6, height = 4, units = "in", res = 300)
+
+
+par(mfrow=c(1,3), cex.lab=1.2)
+plot(C44$viability, fitted(C44_SbIII.LL4), main="LL4", 
+     xlab ="Adjusted values", ylab="Observed values", pch=16, cex=.7)
+abline(a = 0,b = 1)
+residuals(C44_SbIII.LL4, typeRes = c("studentised"))
+plot(fitted(C44_SbIII.LL4),residuals(C44_SbIII.LL4, 
+                                     typeRes = c("studentised")), 
+     main="LL4", xlab="Adjusted values", ylab="Residuals", pch=16, cex=.7)
+lines(loess.smooth(fitted(C44_SbIII.LL4), 
+                   residuals(C44_SbIII.LL4, typeRes = c("studentised"))))
+abline(h=0, lty=2)
+qqnorm(residuals(C44_SbIII.LL4), xlab="Theoretical quantiles", 
+       ylab="Residuals", main = "LL4")
+qqline(residuals(C44_SbIII.LL4))
+
+png("Figures/03_Fit_diagnostic_C44.png",  width = 6, height = 4, units = "in", res = 300)
+
+
+par(mfrow=c(1,3), cex.lab=1.2)
+plot(C85$viability, fitted(C85_SbIII.LL4), main="LL4", 
+     xlab ="Adjusted values", ylab="Observed values", pch=16, cex=.7)
+abline(a = 0,b = 1)
+residuals(C85_SbIII.LL4, typeRes = c("studentised"))
+plot(fitted(C85_SbIII.LL4),residuals(C85_SbIII.LL4, 
+                                     typeRes = c("studentised")), 
+     main="LL4", xlab="Adjusted values", ylab="Residuals", pch=16, cex=.7)
+lines(loess.smooth(fitted(C85_SbIII.LL4), 
+                   residuals(C85_SbIII.LL4, typeRes = c("studentised"))))
+abline(h=0, lty=2)
+qqnorm(residuals(C85_SbIII.LL4), xlab="Theoretical quantiles", 
+       ylab="Residuals", main = "LL4")
+qqline(residuals(C85_SbIII.LL4))
+
+png("Figures/03_Fit_diagnostic_C85.png",  width = 6, height = 4, units = "in", res = 300)
+
+par(mfrow=c(1,3), cex.lab=1.2)
+plot(C89$viability, fitted(C89_SbIII.LL4), main="LL4", 
+     xlab ="Adjusted values", ylab="Observed values", pch=16, cex=.7)
+abline(a = 0,b = 1)
+residuals(C89_SbIII.LL4, typeRes = c("studentised"))
+plot(fitted(C89_SbIII.LL4),residuals(C89_SbIII.LL4, 
+                                     typeRes = c("studentised")), 
+     main="LL4", xlab="Adjusted values", ylab="Residuals", pch=16, cex=.7)
+lines(loess.smooth(fitted(C89_SbIII.LL4), 
+                   residuals(C89_SbIII.LL4, typeRes = c("studentised"))))
+abline(h=0, lty=2)
+qqnorm(residuals(C89_SbIII.LL4), xlab="Theoretical quantiles", 
+       ylab="Residuals", main = "LL4")
+qqline(residuals(C89_SbIII.LL4))
+
+png("Figures/03_Fit_diagnostic_C89.png",  width = 6, height = 4, units = "in", res = 300)
+
+
 

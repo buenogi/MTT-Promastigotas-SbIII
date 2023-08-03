@@ -20,7 +20,7 @@ sapply(DataMTT, class)
 
 DataMTT_sum <- DataMTT%>%
   group_by(pop,conc)%>%
-  summarise(mean_value = mean(viability), sd_value = sd(viability))
+  summarise(mean_value = mean(viability_res), sd_value = sd(viability_res))
 
 MTT_plot  <- ggplot(DataMTT, aes(x = log(conc),  y = viability,  
                                  group = experiment))+
