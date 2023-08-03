@@ -21,7 +21,7 @@ DataMTT$conc<- as.factor(DataMTT$conc)
 sapply(DataMTT, class)
 
 
-MTT_BP_pop <-  ggplot(DataMTT, aes(conc, viability))+
+MTT_BP_pop <-  ggplot(DataMTT, aes(conc, viability_res))+
   geom_boxplot()+
   ggtitle("Box plot promastigotes viability per SbIII dosage") +
   labs(x = " Conc [   ] μM", y = "Viability (%)")+

@@ -8,7 +8,7 @@ library(drc)
 
 # Loading data 
 
-MTT_SbIII_SUM <- read.csv(file = "Data/Processed/DataMTT_processed_normalized.csv", 
+MTT_SbIII<- read.csv(file = "Data/Processed/DataMTT_processed_normalized.csv", 
                       header = TRUE, sep = ,)
 
 # Checking data
@@ -22,7 +22,7 @@ sapply(MTT_SbIII, class)
   #group_by(conc,pop)%>%
   #summarise(mean_value = mean(viability_res), sd_value = sd(viability_res))
 
-MTT_SbIII_SUM <- rename(MTT_SbIII_SUM, 
+MTT_SbIII_SUM <- rename(MTT_SbIII, 
                         #viability_res = "mean_value", 
                         conc = "conc", pop = "pop", 
                         #sd_value = "sd_value", 
@@ -43,52 +43,62 @@ C89 <- filter(MTT_SbIII_SUM, pop == "C89")
 
 # Adjusting the models
 
-REF_SbIII.LL4 <- drm(viability_res ~ conc, data = REF , fct = LL.4())
+REF_SbIII.LL4 <- drm(viability_res ~ conc, data = REF , fct = LL.4(
+  fixed = c(NA, 0,100, NA), names = c("b","c", "d", "e")))
 plot(REF_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-GSH1_SbIII.LL4 <- drm(viability_res ~ conc, data = GSH1 , fct = LL.4())
+GSH1_SbIII.LL4 <- drm(viability_res~ conc, data = GSH1 , fct = LL.4(
+  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
 plot(GSH1_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C6_SbIII.LL4 <- drm(viability_res ~ conc, data = C6 , fct = LL.4())
+C6_SbIII.LL4 <- drm(viability_res ~ conc, data = C6 , fct = LL.4(
+  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
 plot(C6_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C7_SbIII.LL4 <- drm(viability_res ~ conc, data = C7 , fct = LL.4())
+C7_SbIII.LL4 <- drm(viability_res ~ conc, data = C7 , fct = LL.4(
+  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
 plot(C7_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C44_SbIII.LL4 <- drm(viability_res ~ conc, data = C44 , fct = LL.4())
+C44_SbIII.LL4 <- drm(viability_res ~ conc, data = C44 , fct = LL.4(
+  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
 plot(C44_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C58_SbIII.LL4 <- drm(viability_res ~ conc, data = C58 , fct = LL.4())
+C58_SbIII.LL4 <- drm(viability_res ~ conc, data = C58 , fct = LL.4(
+  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
 plot(C58_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C67_SbIII.LL4 <- drm(viability_res ~ conc, data = C67 , fct = LL.4())
+C67_SbIII.LL4 <- drm(viability_res ~ conc, data = C67 , fct = LL.4(
+  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
 plot(C67_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C73_SbIII.LL4 <- drm(viability_res ~ conc, data = C73 , fct = LL.4())
+C73_SbIII.LL4 <- drm(viability_res ~ conc, data = C73 , fct = LL.4(
+  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
 plot(C73_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C85_SbIII.LL4 <- drm(viability_res ~ conc, data = C85 , fct = LL.4())
+C85_SbIII.LL4 <- drm(viability_res ~ conc, data = C85 , fct = LL.4(
+  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
 plot(C85_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C89_SbIII.LL4 <- drm(viability_res ~ conc, data = C89 , fct = LL.4())
+C89_SbIII.LL4 <- drm(viability_res ~ conc, data = C89 , fct = LL.4(
+  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
 plot(C89_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")

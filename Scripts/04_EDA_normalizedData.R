@@ -16,13 +16,30 @@ DataMTT$pop <- as.factor(DataMTT$pop)
 DataMTT$experiment <- as.factor(DataMTT$experiment) 
 sapply(DataMTT, class)
 
-# Summarazing
-
-DataMTT_sum <- DataMTT%>%
-  group_by(pop,conc)%>%
-  summarise(mean_value = mean(viability_res), sd_value = sd(viability_res))
-
 MTT_plot  <- ggplot(DataMTT, aes(x = log(conc),  y = viability,  
+                                 group = experiment))+
+  geom_point(aes(color = experiment))+
+  geom_line(aes(color = experiment))+
+  ggtitle("Promastigotes viability per SbIII dosage") +
+  labs(x = " Conc [   ] μM", y = "Viability (%)")+
+  theme(plot.title = element_text(size = 14,face="bold"),
+        axis.text.x = element_text(size = 10), 
+        axis.text.y = element_text(size = 10),
+        axis.title.x = element_text(size = 15),
+        axis.title.y = element_text(size = 15))+
+  #facet_grid(MTT_SbIII_48h$pop)+
+  facet_wrap(DataMTT$pop, nrow = 2)+
+  theme_bw()
+
+MTT_plot +  labs(color = "Populations")
+
+ggsave("Figures/01_MTT_plot_viability.png")
+
+
+# With Viability reescaled
+
+
+MTT_plot  <- ggplot(DataMTT, aes(x = log(conc),  y = viability_res,  
                                  group = experiment))+
   geom_point(aes(color = experiment))+
   geom_line(aes(color = experiment))+
@@ -41,6 +58,16 @@ MTT_plot +  labs(color = "Populations")
 
 ggsave("Figures/01_MTT_plot_normalized.png")
 
+
+
+# Summarized data
+
+# Summarazing
+
+DataMTT_sum <- DataMTT%>%
+  group_by(pop,conc)%>%
+  summarise(mean_value = mean(viability_res), sd_value = sd(viability_res))
+
 MTT_plot2  <- ggplot(DataMTT_sum, aes(x = log(conc),  y = mean_value,  group = pop))+
   geom_point(aes(color = pop))+
   geom_line(aes(color = pop))+
@@ -56,4 +83,4 @@ MTT_plot2  <- ggplot(DataMTT_sum, aes(x = log(conc),  y = mean_value,  group = p
   theme_bw()
 
 MTT_plot2 +  labs(color = "Populations")
-ggsave("Figures/02_MTT_plot_normalized.png")
+ggsave("Figures/02_MTT_plot_viability.png")
