@@ -1,10 +1,9 @@
 ################################################################################
-#################### Normalization and reescaling data #########################
+#################################### Viability #################################
 ################################################################################
 
 # Packages
 
-library(scales)
 library(dplyr)
 library(rstatix)
 
@@ -134,6 +133,6 @@ for (i in 1:nrow(DataMTT_Full)){
 
 # CSV exportation
 
-write.csv(DataMTT_Full , file = "Data/Processed/DataMTT_processed_normalized.csv", 
+write.csv(DataMTT_Full , file = "Data/Processed/DataMTT_viability.csv", 
           sep = ",", row.names = F)
 

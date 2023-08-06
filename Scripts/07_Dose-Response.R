@@ -28,6 +28,15 @@ MTT_SbIII_SUM <- rename(MTT_SbIII,
                         #sd_value = "sd_value", 
                         experiment = "experiment")
 
+# Adding mean values
+
+sum_values <- MTT_SbIII%>%
+  group_by(conc,pop)%>%
+  summarise(mean_value_res = mean(viability_normalized), 
+            sd_value_res = sd(viability_normalized))
+
+MTT_SbIII_SUM <- full_join(MTT_SbIII_SUM, sum_values, by = c("conc", "pop"))
+
 
 #Splitting populations
 REF <- filter(MTT_SbIII_SUM, pop == "REF")
@@ -43,62 +52,62 @@ C89 <- filter(MTT_SbIII_SUM, pop == "C89")
 
 # Adjusting the models
 
-REF_SbIII.LL4 <- drm(viability_res ~ conc, data = REF , fct = LL.4(
+REF_SbIII.LL4 <- drm(viability_normalized ~ conc, data = REF , fct = LL.4(
   fixed = c(NA, 0,100, NA), names = c("b","c", "d", "e")))
 plot(REF_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
-
-GSH1_SbIII.LL4 <- drm(viability_res~ conc, data = GSH1 , fct = LL.4(
-  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
+summary(REF_SbIII.LL4)
+GSH1_SbIII.LL4 <- drm(viability_normalized~ conc, data = GSH1 , fct = LL.4(
+  fixed = c(NA, 0,100, NA), names = c("b","c", "d", "e")))
 plot(GSH1_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
-
-C6_SbIII.LL4 <- drm(viability_res ~ conc, data = C6 , fct = LL.4(
-  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
+summary(GSH1_SbIII.LL4)
+C6_SbIII.LL4 <- drm(viability_normalized ~ conc, data = C6 , fct = LL.4(
+  fixed = c(NA,0,100, NA), names = c("b","c", "d", "e")))
 plot(C6_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C7_SbIII.LL4 <- drm(viability_res ~ conc, data = C7 , fct = LL.4(
-  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
+C7_SbIII.LL4 <- drm(viability_normalized ~ conc, data = C7 , fct = LL.4(
+  fixed = c(NA, 0,100, NA), names = c("b","c", "d", "e")))
 plot(C7_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C44_SbIII.LL4 <- drm(viability_res ~ conc, data = C44 , fct = LL.4(
-  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
+C44_SbIII.LL4 <- drm(viability_normalized ~ conc, data = C44 , fct = LL.4(
+  fixed = c(NA, 0,100, NA), names = c("b","c", "d", "e")))
 plot(C44_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C58_SbIII.LL4 <- drm(viability_res ~ conc, data = C58 , fct = LL.4(
-  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
+C58_SbIII.LL4 <- drm(viability_normalized ~ conc, data = C58 , fct = LL.4(
+  fixed = c(NA, 0,100, NA), names = c("b","c", "d", "e")))
 plot(C58_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C67_SbIII.LL4 <- drm(viability_res ~ conc, data = C67 , fct = LL.4(
-  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
+C67_SbIII.LL4 <- drm(viability_normalized ~ conc, data = C67 , fct = LL.4(
+  fixed = c(NA,0,100, NA), names = c("b","c", "d", "e")))
 plot(C67_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C73_SbIII.LL4 <- drm(viability_res ~ conc, data = C73 , fct = LL.4(
-  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
+C73_SbIII.LL4 <- drm(viability_normalized ~ conc, data = C73 , fct = LL.4(
+  fixed = c(NA, 0,100, NA), names = c("b","c", "d", "e")))
 plot(C73_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C85_SbIII.LL4 <- drm(viability_res ~ conc, data = C85 , fct = LL.4(
-  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
+C85_SbIII.LL4 <- drm(viability_normalized ~ conc, data = C85 , fct = LL.4(
+  fixed = c(NA,0,100, NA), names = c("b","c", "d", "e")))
 plot(C85_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
 
-C89_SbIII.LL4 <- drm(viability_res ~ conc, data = C89 , fct = LL.4(
-  fixed = c(NA, 0, 100, NA), names = c("b","c", "d", "e")))
+C89_SbIII.LL4 <- drm(viability_normalized ~ conc, data = C89 , fct = LL.4(
+  fixed = c(NA,0,100, NA), names = c("b","c", "d", "e")))
 plot(C89_SbIII.LL4, xlim = c(0,1000), ylim = c(0,100), 
      broken = TRUE, gridsize = 100, xlab = "SbIII [  ] μM", 
      ylab = "Viability (%)", type = "bars")
@@ -118,52 +127,52 @@ ED(C89_SbIII.LL4,50)
 
 ## Exploring predicted model
 newdata_REF <- expand.grid(conc = seq(min(REF$conc), max(REF$conc), length.out = 200))
-newdata_REF$mean_value <- predict(REF_SbIII.LL4, newdata_REF, type = 'response')
+newdata_REF$viability_normalized <- predict(REF_SbIII.LL4, newdata_REF, type = 'response')
 newdata_REF$pop <- "REF"
 
 newdata_GSH1 <- expand.grid(conc = seq(min(GSH1$conc), max(GSH1$conc),
                                        length.out = 200))
-newdata_GSH1$mean_value <- predict(GSH1_SbIII.LL4, newdata_GSH1, type = 'response')
+newdata_GSH1$viability_normalized <- predict(GSH1_SbIII.LL4, newdata_GSH1, type = 'response')
 newdata_GSH1$pop <- "GSH1"
 
 newdata_C6 <- expand.grid(conc = seq(min(C6$conc), max(C6$conc),
                                      length.out = 200))
-newdata_C6$mean_value <- predict(C6_SbIII.LL4, newdata_C6, type = 'response')
+newdata_C6$viability_normalized <- predict(C6_SbIII.LL4, newdata_C6, type = 'response')
 newdata_C6$pop <- "C6"
 
 newdata_C7 <- expand.grid(conc = seq(min(C7$conc), max(C7$conc),
                                      length.out = 200))
-newdata_C7$mean_value <- predict(C7_SbIII.LL4, newdata_C7, type = 'response')
+newdata_C7$viability_normalized <- predict(C7_SbIII.LL4, newdata_C7, type = 'response')
 newdata_C7$pop <- "C7"
 
 newdata_C44 <- expand.grid(conc = seq(min(C44$conc), max(C44$conc),
                                       length.out = 200))
-newdata_C44$mean_value <- predict(C44_SbIII.LL4, newdata_C44, type = 'response')
+newdata_C44$viability_normalized <- predict(C44_SbIII.LL4, newdata_C44, type = 'response')
 newdata_C44$pop <- "C44"
 
 newdata_C58 <- expand.grid(conc = seq(min(C58$conc), max(C58$conc),
                                       length.out = 200))
-newdata_C58$mean_value <- predict(C58_SbIII.LL4, newdata_C58, type = 'response')
+newdata_C58$viability_normalized <- predict(C58_SbIII.LL4, newdata_C58, type = 'response')
 newdata_C58$pop <- "C58"
 
 newdata_C67 <- expand.grid(conc = seq(min(C67$conc), max(C67$conc),
                                       length.out = 200))
-newdata_C67$mean_value <- predict(C67_SbIII.LL4, newdata_C67, type = 'response')
+newdata_C67$viability_normalized <- predict(C67_SbIII.LL4, newdata_C67, type = 'response')
 newdata_C67$pop <- "C67"
 
 newdata_C73 <- expand.grid(conc = seq(min(C73$conc), max(C73$conc),
                                       length.out = 200))
-newdata_C73$mean_value <- predict(C73_SbIII.LL4, newdata_C73, type = 'response')
+newdata_C73$viability_normalized <- predict(C73_SbIII.LL4, newdata_C73, type = 'response')
 newdata_C73$pop <- "C73"
 
 newdata_C85 <- expand.grid(conc = seq(min(C85$conc), max(C85$conc),
                                       length.out = 200))
-newdata_C85$mean_value <- predict(C85_SbIII.LL4, newdata_C85, type = 'response')
+newdata_C85$viability_normalized <- predict(C85_SbIII.LL4, newdata_C85, type = 'response')
 newdata_C85$pop <- "C85"
 
 newdata_C89 <- expand.grid(conc = seq(min(C89$conc), max(C89$conc),
                                       length.out = 200))
-newdata_C89$mean_value <- predict(C89_SbIII.LL4, newdata_C89, type = 'response')
+newdata_C89$viability_normalized <- predict(C89_SbIII.LL4, newdata_C89, type = 'response')
 newdata_C89$pop <- "C89"
 
 MTT_SUM_full <- full_join(REF, C6)
@@ -187,59 +196,178 @@ newdata_full <- rbind(newdata_full, newdata_C73)
 newdata_full <- rbind(newdata_full, newdata_C85)
 newdata_full <- rbind(newdata_full, newdata_C89)
 
-
-DoseResponseCurves <- ggplot(mapping = aes(x = log(conc,10) , 
-                                           y = mean_value)) +
-  geom_point(data = REF) +  geom_line(data = newdata_REF) +
-  geom_point(data = GSH1) +  geom_line(data = newdata_GSH1) +
-  geom_point(data = C6) +  geom_line(data = newdata_C6) +
-  geom_point(data = C7) +  geom_line(data = newdata_C7) +
-  geom_point(data = C44) +  geom_line(data = newdata_C44) +
-  geom_point(data = C58) +  geom_line(data = newdata_C58) +
-  geom_point(data = C67) +  geom_line(data = newdata_C67) +
-  geom_point(data = C73) +  geom_line(data = newdata_C73) +
-  geom_point(data = C85) +  geom_line(data = newdata_C85) +
-  geom_point(data = C89) +  geom_line(data = newdata_C89) +
-  ggtitle("Promastigotes dose response to SbIII ") +
-  labs(x = " Log10 [   ] μM", y = "Viability (%)")+
-  theme(plot.title = element_text(size = 14,face="bold"),
-        axis.text.x = element_text(size = 10), 
-        axis.text.y = element_text(size = 10),
-        axis.title.x = element_text(size = 15),
-        axis.title.y = element_text(size = 15))+
-  theme_bw()
-
-DoseResponseCurves
-
-
-DoseResponseCurves1 <- ggplot(mapping = aes(x = log(conc,10) , 
-                                            y = mean_value, 
-                                            color = pop)) +
-  geom_line(data = newdata_REF) +
-  geom_line(data = newdata_GSH1) +
-  geom_line(data = newdata_C6) +
-  geom_line(data = newdata_C7) +
-  geom_line(data = newdata_C44) +
-  geom_line(data = newdata_C58) +
-  geom_line(data = newdata_C67) +
-  geom_line(data = newdata_C73) +
-  geom_line(data = newdata_C85) +
-  geom_line(data = newdata_C89) +
+DoseResponseCurves_01 <- ggplot() +
+  geom_point(data = REF, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_REF, aes(x = log(conc, 10), y = newdata_REF$viability_normalized)) +
+  geom_point(data = GSH1, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_GSH1, aes(x = log(conc, 10), y = newdata_GSH1$viability_normalized))+
+  geom_point(data = C6, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C6, aes(x = log(conc, 10), y = newdata_C6$viability_normalized))+
+  geom_point(data = C7, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C7, aes(x = log(conc, 10), y = newdata_C7$viability_normalized)) +
+  geom_point(data = C44, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C44
+            , aes(x = log(conc, 10), y = newdata_C44$viability_normalized))+
+  geom_point(data = C58, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C58, aes(x = log(conc, 10), y = newdata_C58$viability_normalized))+
+  geom_point(data = C67, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C67, aes(x = log(conc, 10), y =  newdata_C67$viability_normalized )) +
+  geom_point(data = C73, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C73, aes(x = log(conc, 10), y =newdata_C73$viability_normalized )) +
+  geom_point(data = C85, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C85, aes(x = log(conc, 10), y = newdata_C85$viability_normalized))+
+  geom_point(data = C89, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C89, aes(x = log(conc, 10), y = newdata_C89$viability_normalized))+
   ggtitle("Promastigotes dose response to SbIII") +
-  labs(x = " Log10 [   ] μM", y = "Viability (%)")+
-  theme(plot.title = element_text(size = 14,face="bold"),
-        axis.text.x = element_text(size = 10), 
-        axis.text.y = element_text(size = 10),
-        axis.title.x = element_text(size = 15),
-        axis.title.y = element_text(size = 15))+
-  theme_bw()
+  labs(x = "Log10 [ ] μM", y = "Viability (%)") +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(size = 10),
+    axis.text.y = element_text(size = 10),
+    axis.title.x = element_text(size = 15),
+    axis.title.y = element_text(size = 15)
+  ) +
+  facet_wrap(~pop)
 
-DoseResponseCurves1 + labs(color = "Population")
+DoseResponseCurves_01
 
-ggsave("Figures/03_DoseResponseCurve1.jpeg", dpi = 300 )
+ggsave("Figures/DoseResponseCurves_01.png")
+
+DoseResponseCurves02_error <- ggplot() +
+  geom_point(data = REF, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_REF, aes(x = log(conc, 10), y = newdata_REF$viability_normalized)) +
+  geom_errorbar(data = REF, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = GSH1, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_GSH1, aes(x = log(conc, 10), y = newdata_GSH1$viability_normalized)) +
+  geom_errorbar(data = GSH1, aes(x = log(conc, 10),
+                                 ymin = mean_value_res - sd_value_res/sqrt(4),
+                                 ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C6, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C6, aes(x = log(conc, 10), y = newdata_C6$viability_normalized)) +
+  geom_errorbar(data = C6, aes(x = log(conc, 10),
+                               ymin = mean_value_res - sd_value_res/sqrt(4),
+                               ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C7, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C7, aes(x = log(conc, 10), y = newdata_C7$viability_normalized)) +
+  geom_errorbar(data = C7, aes(x = log(conc, 10),
+                               ymin = mean_value_res - sd_value_res/sqrt(4),
+                               ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C44, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C44, aes(x = log(conc, 10), y = newdata_C44$viability_normalized)) +
+  geom_errorbar(data = C44, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C58, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C58, aes(x = log(conc, 10), y = newdata_C58$viability_normalized)) +
+  geom_errorbar(data = C58, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C73, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C73, aes(x = log(conc, 10), y = newdata_C73$viability_normalized)) +
+  geom_errorbar(data = C73, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C85, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C85, aes(x = log(conc, 10), y = newdata_C85$viability_normalized)) +
+  geom_errorbar(data = C85, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C67, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C67, aes(x = log(conc, 10), y = newdata_C67$viability_normalized)) +
+  geom_errorbar(data = C67, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  geom_point(data = C89, aes(x = log(conc, 10), y = viability_normalized)) +
+  geom_line(data = newdata_C89, aes(x = log(conc, 10), y = newdata_C89$viability_normalized)) +
+  geom_errorbar(data = C89, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.2) +
+  ggtitle("Promastigotes dose response to SbIII") +
+  labs(x = "Log10 [ ] μM", y = "Viability (%)") +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(size = 10),
+    axis.text.y = element_text(size = 10),
+    axis.title.x = element_text(size = 15),
+    axis.title.y = element_text(size = 15))+
+  facet_wrap(~pop)
+
+DoseResponseCurves02_error
+ggsave("Figures/DoseResponseCurves_02.png")
+
+
+DoseResponseCurves03_error <- ggplot() +
+  geom_point(data = REF, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_REF, aes(x = log(conc, 10), y = viability_normalized, color = pop)) +
+  geom_errorbar(data = REF, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02, alpha = 0.3) +
+  geom_point(data = GSH1, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_GSH1, aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = GSH1, aes(x = log(conc, 10),
+                                 ymin = mean_value_res - sd_value_res/sqrt(4),
+                                 ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
+  geom_point(data = C6, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C6, aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C6, aes(x = log(conc, 10),
+                               ymin = mean_value_res - sd_value_res/sqrt(4),
+                               ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
+  geom_point(data = C7, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C7, aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C7, aes(x = log(conc, 10),
+                               ymin = mean_value_res - sd_value_res/sqrt(4),
+                               ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
+  geom_point(data = C44, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C44, aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C44, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
+  geom_point(data = C58, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C58, aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C58, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
+  geom_point(data = C73, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C73, aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C73, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
+  geom_point(data = C85, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C85, aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C85, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
+  geom_point(data = C67, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C67, aes(x = log(conc, 10),  y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C67, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
+  geom_point(data = C89, aes(x = log(conc, 10), y = mean_value_res, color = pop)) +
+  geom_line(data = newdata_C89, aes(x = log(conc, 10), y = viability_normalized, color = pop)) +
+  geom_errorbar(data = C89, aes(x = log(conc, 10),
+                                ymin = mean_value_res - sd_value_res/sqrt(4),
+                                ymax = mean_value_res + sd_value_res/sqrt(4)), width = 0.02,alpha = 0.3) +
+  ggtitle("Promastigotes dose response to SbIII") +
+  labs(x = "Log10 [ ] μM", y = "Viability (%)") +
+  theme_bw() +
+  theme(    plot.title = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(size = 10),
+    axis.text.y = element_text(size = 10),
+    axis.title.x = element_text(size = 15),
+    axis.title.y = element_text(size = 15))
+  #facet_wrap(~pop)
+  
+DoseResponseCurves03_error + labs(color = "Populations")
+
+ggsave("Figures/DoseResponseCurves_03.png")
 
 
 # Extracting measures
+
 
 
 COEFICIENTS <- c("b", "c", "d", "e")
