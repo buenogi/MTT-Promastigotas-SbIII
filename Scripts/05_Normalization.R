@@ -26,6 +26,9 @@ C67 <- filter(DataMTT, pop == "C67")
 C73 <- filter(DataMTT, pop == "C73")
 C85 <- filter(DataMTT, pop == "C85")
 C89 <- filter(DataMTT, pop == "C89")
+C76 <- filter(DataMTT, pop == "C76")
+C67p <- filter(DataMTT, pop == "C67p")
+C68 <- filter(DataMTT, pop == "C68")
 
 REF$mean_normalized <- rescale(REF$mean_value, c(0,100))
 GSH1$mean_normalized <- rescale(GSH1$mean_value, c(0,100))
@@ -37,6 +40,9 @@ C67$mean_normalized <- rescale(C67$mean_value, c(0,100))
 C73$mean_normalized <- rescale(C73$mean_value, c(0,100))
 C85$mean_normalized <- rescale(C85$mean_value, c(0,100))
 C89$mean_normalized <- rescale(C89$mean_value, c(0,100))
+C76$mean_normalized <- rescale(C76$mean_value, c(0,100))
+C67p$mean_normalized <- rescale(C67p$mean_value, c(0,100))
+C68$mean_normalized <- rescale(C68$mean_value, c(0,100))
 
 # REF
 
@@ -132,9 +138,35 @@ C89$viability_normalized <- viability_normalized
 
 
 
+# C76
+viability_normalized <- c()
+for (i in 1:nrow(C76)){
+  viability_est <- C76$viability[i]*C76$mean_normalized[i]/C76$mean_value[i]
+  viability_normalized[i] <- viability_est }
+
+C76$viability_normalized <- viability_normalized
+
+# C67
+
+viability_normalized <- c()
+for (i in 1:nrow(C67p)){
+  viability_est <- C67p$viability[i]*C67p$mean_normalized[i]/C67p$mean_value[i]
+  viability_normalized[i] <- viability_est }
+
+C67p$viability_normalized <- viability_normalized
+
+#C68
+
+viability_normalized <- c()
+for (i in 1:nrow(C68)){
+  viability_est <- C68$viability[i]*C68$mean_normalized[i]/C68$mean_value[i]
+  viability_normalized[i] <- viability_est }
+
+C68$viability_normalized <- viability_normalized
+
 # Binding data
 
-DataMTT_Full  <- rbind(REF, GSH1, C6,C7,C44,C58, C67,C73,C85,C89)
+DataMTT_Full  <- rbind(REF, GSH1, C6,C7,C44,C58, C67,C73,C85,C89, C76, C67p,C68)
 
 
 # CSV exportation

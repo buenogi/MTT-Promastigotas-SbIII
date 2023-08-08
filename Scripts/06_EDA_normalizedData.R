@@ -33,7 +33,7 @@ MTT_plot  <- ggplot(DataMTT, aes(x = log(conc),  y = viability,
 
 MTT_plot +  labs(color = "Populations")
 
-ggsave("Figures/01_MTT_plot_viability.png")
+ggsave("Figures/04_MTT_plot_viability.png")
 
 
 # With Viability reescaled
@@ -56,7 +56,7 @@ MTT_plot  <- ggplot(DataMTT, aes(x = log(conc),  y = viability_normalized,
 
 MTT_plot +  labs(color = "Populations")
 
-ggsave("Figures/01_MTT_plot_normalized.png")
+ggsave("Figures/05_MTT_plot_normalized.png")
 
 
 
@@ -83,4 +83,4 @@ MTT_plot2  <- ggplot(DataMTT_sum, aes(x = log(conc),  y = mean_value,  group = p
   theme_bw()
 
 MTT_plot2 +  labs(color = "Populations")
-ggsave("Figures/02_MTT_plot_viability.png")
+ggsave("Figures/06_MTT_plot_viability.png")

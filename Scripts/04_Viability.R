@@ -17,16 +17,16 @@ outliers_multiple <- DataMTT%>%
   group_by(pop,experiment) %>%
   identify_outliers(values)
 
-outliers <- c(39,206)
+outliers <- c(39)
 
 DataMTT <- DataMTT[-outliers,]
 
 # Spliting data
 
 EXP_piloto <- filter(DataMTT, experiment == "EXP_piloto")
-EXP1 <- filter(DataMTT, experiment == "EXP_1")
-EXP2 <- filter(DataMTT, experiment == "EXP_2")
-EXP3 <- filter(DataMTT, experiment == "EXP_3")
+EXP1 <- filter(DataMTT, experiment == "EXP1")
+EXP2 <- filter(DataMTT, experiment == "EXP2")
+EXP3 <- filter(DataMTT, experiment == "EXP3")
 
 # Experiment piloto
 
@@ -35,7 +35,7 @@ EXP3 <- filter(DataMTT, experiment == "EXP_3")
 CNTRL_value <- EXP_piloto%>% 
   filter(conc == "0")%>%
   group_by(pop)%>%
-  summarise(Cntrl_values = values)
+  summarise(Cntrl_values = mean(values))
 
 EXP_piloto <- inner_join(CNTRL_value, EXP_piloto, by = "pop")
 
@@ -54,7 +54,7 @@ EXP_piloto$viability <- viability
 CNTRL_value <- EXP1%>% 
   filter(conc == "0")%>%
   group_by(pop)%>%
-  summarise(Cntrl_values = values)
+  summarise(Cntrl_values = mean(values))
 
 EXP1 <- inner_join(CNTRL_value, EXP1, by = "pop")
 
@@ -73,7 +73,7 @@ EXP1$viability <- viability
 CNTRL_value <- EXP2%>% 
   filter(conc == "0")%>%
   group_by(pop)%>%
-  summarise(Cntrl_values = values)
+  summarise(Cntrl_values = mean(values))
 
 EXP2 <- inner_join(CNTRL_value, EXP2, by = "pop")
 
@@ -93,7 +93,7 @@ EXP2$viability <- viability
 CNTRL_value <- EXP3%>% 
   filter(conc == "0")%>%
   group_by(pop)%>%
-  summarise(Cntrl_values = values)
+  summarise(Cntrl_values = mean(values))
 
 EXP3 <- inner_join(CNTRL_value, EXP3, by = "pop")
 
@@ -124,11 +124,11 @@ mean_values$conc <- as.factor(mean_values$conc)
 DataMTT_Full$conc <- as.factor(DataMTT_Full$conc)
 DataMTT_Full <- left_join( DataMTT_Full,mean_values, by = c("pop", "conc"))
 
-for (i in 1:nrow(DataMTT_Full)){
-  print(DataMTT_Full$viability[i])
-  if (DataMTT_Full$viability[i] > 100){
-    DataMTT_Full$viability[i] <- DataMTT_Full$mean_value[i]
-  }}
+# for (i in 1:nrow(DataMTT_Full)){
+#   print(DataMTT_Full$viability[i])
+#   if (DataMTT_Full$viability[i] > 100){
+#     DataMTT_Full$viability[i] <- DataMTT_Full$mean_value[i]
+#   }}
 
 
 # CSV exportation

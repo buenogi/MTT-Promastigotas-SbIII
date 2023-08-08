@@ -57,3 +57,4 @@ MTT_plot2  <- ggplot(DataMTT_sum, aes(x = log(conc),  y = mean_value,  group = p
 
 MTT_plot2 +  labs(color = "Populations")
 ggsave("Figures/02_MTT_plot.png")
+

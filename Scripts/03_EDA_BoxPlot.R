@@ -9,8 +9,7 @@ library(ggplot2)
 
 # Loading data 
 
-DataMTT <-  read.csv(file = "Data/Processed/DataMTT_processed_normalized.csv",
-                     header = TRUE, sep =",")
+DataMTT <-  read.csv(file = "Data/Processed/DataMTT", header = TRUE, sep =",")
 
 # Checking data
 head(DataMTT)
@@ -21,7 +20,7 @@ DataMTT$conc<- as.factor(DataMTT$conc)
 sapply(DataMTT, class)
 
 
-MTT_BP_pop <-  ggplot(DataMTT, aes(conc, viability_normalized))+
+MTT_BP_pop <-  ggplot(DataMTT, aes(conc, values))+
   geom_boxplot()+
   ggtitle("Box plot promastigotes viability per SbIII dosage") +
   labs(x = " Conc [   ] μM", y = "Viability (%)")+
@@ -35,5 +34,4 @@ MTT_BP_pop <-  ggplot(DataMTT, aes(conc, viability_normalized))+
   theme_bw()
 
 MTT_BP_pop +  labs(color = "Populations")
-
-ggsave("Figures/02_MTT_BoxPlot_normalized.png")
+ggsave("Figures/03_MTT_plot.png")
